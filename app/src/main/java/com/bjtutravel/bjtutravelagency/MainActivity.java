@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+
+    private FragmentTabHost tabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // FRAGMENT MANAGER
+        loadContentFragment();
+    }
+
+    // FRAGMENT MANAGER
+    public void loadContentFragment() {
+        tabHost = (FragmentTabHost)findViewById(R.id.tabhost);
+        tabHost.setup(this, getSupportFragmentManager(), R.id.content_frame);
+
+        tabHost.addTab(tabHost.newTabSpec("Plans").setIndicator("Plans", null), MainActivityFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("Requests").setIndicator("Requests", null), MainActivityFragment.class, null);
 
     }
 
