@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.bjtutravel.bjtutravelagency.BuildConfig;
+import com.bjtutravel.bjtutravelagency.MainActivity;
 import com.bjtutravel.bjtutravelagency.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
@@ -59,8 +61,11 @@ public class AuthUiActivity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                Log.d(TAG, "Sucessful logged in !");
+                Intent in = new Intent(this, MainActivity.class);
+                in.putExtra("ExtraIdpResponse", IdpResponse.fromResultIntent(data));
+                startActivity(in);
                 finish();
+                return;
             } else {
                 // Sign in failed
                 if (response == null) {

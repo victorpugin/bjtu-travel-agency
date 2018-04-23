@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
+import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -24,16 +25,20 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
 
-    private String mUsername;
-    private String mEmailAddress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // FIREBASE AUTH
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        loadCurrentUser();
+
+        // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // FLOATING BUTTON
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        // FRAGMENT MANAGER
+
     }
 
+    // TOOLBAR
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -53,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    // TOOLBAR
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -68,27 +76,25 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        loadCurrentUser();
-    }
-
+    // FIREBASE AUTH
     private void loadCurrentUser() {
 
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         if (mFirebaseUser == null){
             //Not signed in, launch the Sign In Activity
-            startActivity(new Intent(this, AuthUiActivity.class));
+            Intent in = new Intent(this, AuthUiActivity.class);
+            startActivity(in);
+            finish();
+            return;
         }else {
-            mUsername = mFirebaseUser.getDisplayName();
-            mEmailAddress = mFirebaseUser.getEmail();
+            String mUsername = mFirebaseUser.getDisplayName();
+            String mEmailAddress = mFirebaseUser.getEmail();
             showSnackbar("User: " + mUsername + ". Email: " + mEmailAddress);
         }
     }
 
     private void showSnackbar(String msg) {
-        Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_LONG).show();
+        UtilSnackbar.showSnakbar(findViewById(android.R.id.content), msg);
     }
 }
