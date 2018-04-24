@@ -1,5 +1,6 @@
 package com.bjtutravel.bjtutravelagency.request.list;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,18 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bjtutravel.bjtutravelagency.MainActivity;
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.Request;
+
+import com.bjtutravel.bjtutravelagency.request.list.RequestFragment.OnListFragmentInteractionListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RequestRecyclerViewAdapter extends RecyclerView.Adapter<RequestRecyclerViewAdapter.ViewHolder> {
 
+    private final OnListFragmentInteractionListener mListener;
     private ArrayList<Request> mValues;
 
-    public RequestRecyclerViewAdapter() {
+    public RequestRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
         mValues = new ArrayList<>();
+        mListener = listener;
     }
 
     @Override
@@ -36,7 +42,11 @@ public class RequestRecyclerViewAdapter extends RecyclerView.Adapter<RequestRecy
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG", "CLICK");
+                if (null != mListener) {
+                    // Notify the active callbacks interface (the activity, if the
+                    // fragment is attached to one) that an item has been selected.
+                    mListener.onListFragmentInteraction(holder.mItem);
+                }
             }
         });
     }

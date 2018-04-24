@@ -3,7 +3,6 @@ package com.bjtutravel.bjtutravelagency.request.list;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,8 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -28,6 +25,7 @@ import java.util.List;
 public class RequestFragment extends Fragment {
     private static final String TAG = "RequestFragment";
 
+    private OnListFragmentInteractionListener mListener;
     RequestRecyclerViewAdapter adapter;
 
     public RequestFragment() {
@@ -48,7 +46,7 @@ public class RequestFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            adapter = new RequestRecyclerViewAdapter();
+            adapter = new RequestRecyclerViewAdapter(mListener);
             recyclerView.setAdapter(adapter);
         }
 
@@ -59,12 +57,13 @@ public class RequestFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        // Get Firebase db and user
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String userId = UtilFirebase.getFirebaseUserId();
         if (userId == null)
             return;
 
-
+        // Get requests from db and set them in the view
         db.getReference("user-requests").child(userId).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -90,6 +89,37 @@ public class RequestFragment extends Fragment {
         );
     }
 
+    // LISTENER
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(Request request);
+    }
 
 }
 

@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
+import com.bjtutravel.bjtutravelagency.models.Request;
 import com.bjtutravel.bjtutravelagency.request.create.CreateRequestActivity;
+import com.bjtutravel.bjtutravelagency.request.detail.DetailRequestActivity;
 import com.bjtutravel.bjtutravelagency.request.list.RequestFragment;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
@@ -24,7 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements RequestFragment.OnListFragmentInteractionListener {
     private static final String TAG = "MainActivity";
 
     private FragmentTabHost tabHost;
@@ -110,6 +113,14 @@ public class MainActivity extends AppCompatActivity {
             String mEmailAddress = firebaseUser.getEmail();
             showSnackbar("User: " + mUsername + ". Email: " + mEmailAddress);
         }
+    }
+
+    // REQUEST LISTENER
+    @Override
+    public void onListFragmentInteraction(Request request) {
+        Intent newIntent = new Intent(MainActivity.this, DetailRequestActivity.class);
+        newIntent.putExtra("request", request);
+        MainActivity.this.startActivity(newIntent);
     }
 
     private void showSnackbar(String msg) {

@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".auth.AuthUiActivity" />
-        <activity android:name=".request.create.CreateRequestActivity"></activity>
+        <activity android:name=".request.create.CreateRequestActivity" />
+        <activity android:name=".request.detail.DetailRequestActivity"></activity>
     </application>
 
 </manifest>
