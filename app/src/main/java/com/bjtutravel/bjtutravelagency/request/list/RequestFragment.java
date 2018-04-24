@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.Request;
-import com.bjtutravel.bjtutravelagency.request.list.dummy.DummyContent;
-import com.bjtutravel.bjtutravelagency.request.list.dummy.DummyContent.DummyItem;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
