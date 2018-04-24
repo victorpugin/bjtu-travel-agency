@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bjtutravel.bjtutravelagency.R;
@@ -21,6 +22,7 @@ public class CreateRequestActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    // ACTION BAR
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -36,15 +38,19 @@ public class CreateRequestActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_send:
-                Toast.makeText(this, "Send selected", Toast.LENGTH_SHORT)
-                        .show();
-                break;
-            default:
-                break;
+        if (item.getItemId() == R.id.action_send) {
+            saveRequest();
+            Toast.makeText(this, "Sending request", Toast.LENGTH_SHORT)
+                    .show();
+            return true;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
+    }
+
+    // FIREBASE SAVE
+    private void saveRequest() {
+        // Get Data
+
     }
 }

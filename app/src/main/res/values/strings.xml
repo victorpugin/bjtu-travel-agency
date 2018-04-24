@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Bjtu Travel Agency</string>
-    <string name="action_disconnect">Disconnect</string>
+
     <string name="sign_in_cancelled">Sign in cancelled.</string>
     <string name="no_internet_connection">Internet connection error.</string>
     <string name="unknown_error">Unknown error.</string>
+
     <string name="action_send">Send</string>
+    <string name="action_disconnect">Disconnect</string>
+
+    <string name="title">Title</string>
+    <string name="message">Message</string>
 </resources>
