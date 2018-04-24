@@ -25,7 +25,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/title"/>
+        android:background="@android:color/darker_gray"/>
 
     <ScrollView
         android:layout_width="match_parent"
