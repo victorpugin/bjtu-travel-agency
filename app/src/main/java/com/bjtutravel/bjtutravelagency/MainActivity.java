@@ -20,6 +20,7 @@ import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         // FIREBASE AUTH
         loadCurrentUser();
+
+        // START HERE, USER IS AUTHENTICATE
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
