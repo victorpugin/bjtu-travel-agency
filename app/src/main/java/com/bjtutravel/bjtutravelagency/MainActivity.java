@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
 import com.bjtutravel.bjtutravelagency.request.create.CreateRequestActivity;
+import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,9 +25,6 @@ import butterknife.BindView;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-
     private FragmentTabHost tabHost;
 
     @Override
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // FIREBASE AUTH
-        mFirebaseAuth = FirebaseAuth.getInstance();
         loadCurrentUser();
 
         // TOOLBAR
@@ -84,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_disconnect) {
-            mFirebaseAuth.signOut();
+            UtilFirebase.getFirebaseAuth().signOut();
             loadCurrentUser();
             return true;
         }
@@ -95,17 +92,17 @@ public class MainActivity extends AppCompatActivity {
     // FIREBASE AUTH
     private void loadCurrentUser() {
 
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
 
-        if (mFirebaseUser == null){
+        if (firebaseUser == null){
             //Not signed in, launch the Sign In Activity
             Intent in = new Intent(this, AuthUiActivity.class);
             startActivity(in);
             finish();
             return;
         }else {
-            String mUsername = mFirebaseUser.getDisplayName();
-            String mEmailAddress = mFirebaseUser.getEmail();
+            String mUsername = firebaseUser.getDisplayName();
+            String mEmailAddress = firebaseUser.getEmail();
             showSnackbar("User: " + mUsername + ". Email: " + mEmailAddress);
         }
     }

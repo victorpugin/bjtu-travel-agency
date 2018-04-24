@@ -12,8 +12,8 @@ public class Request implements Serializable {
 
     }
 
-    public HashMap<String, String> toFirebaseObject() {
-        HashMap<String, String> request = new HashMap<String, String>();
+    public HashMap<String, Object> toMap() {
+        HashMap<String, Object> request = new HashMap<String, Object>();
 
         request.put("title", title);
         request.put("message", message);
