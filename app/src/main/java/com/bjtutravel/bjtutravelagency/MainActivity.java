@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
+import com.bjtutravel.bjtutravelagency.request.create.CreateRequestActivity;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent in = new Intent(MainActivity.this, CreateRequestActivity.class);
+                startActivity(in);
             }
         });
 
