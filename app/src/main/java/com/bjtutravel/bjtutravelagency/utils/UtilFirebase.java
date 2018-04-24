@@ -12,4 +12,12 @@ public class UtilFirebase {
         FirebaseAuth auth = getFirebaseAuth();
         return auth.getCurrentUser();
     }
+
+    public static String getFirebaseUserId() {
+        FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
+        if (firebaseUser == null)
+            return null;
+
+        return firebaseUser.getUid();
+    }
 }

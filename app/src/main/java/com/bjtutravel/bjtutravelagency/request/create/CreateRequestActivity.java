@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class CreateRequestActivity extends AppCompatActivity {
+    private static final String TAG = "CreateRequestActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class CreateRequestActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        setTitle(R.string.create_request_activity);
     }
 
     // ACTION BAR
@@ -65,11 +68,9 @@ public class CreateRequestActivity extends AppCompatActivity {
 
     // FIREBASE SAVE
     private void saveRequest() {
-        FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
-        if (firebaseUser == null)
+        String userId = UtilFirebase.getFirebaseUserId();
+        if (userId == null)
             return;
-
-        String userId = firebaseUser.getUid();
 
         // Get Data
         EditText titleEdtText = (EditText)findViewById(R.id.edit_request_title);
@@ -103,11 +104,13 @@ public class CreateRequestActivity extends AppCompatActivity {
                     UtilSnackbar.showSnakbar(
                             findViewById(android.R.id.content),
                             getResources().getString(R.string.title));
+                    Log.d(TAG, "SaveRequest success");
                     finish();
                 } else {
                     UtilSnackbar.showSnakbar(
                             findViewById(android.R.id.content),
                             databaseError.getMessage());
+                    Log.e(TAG, "SaveRequest failed: " + databaseError.getMessage());
                 }
             }
         });

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
 import com.bjtutravel.bjtutravelagency.request.create.CreateRequestActivity;
+import com.bjtutravel.bjtutravelagency.request.list.RequestFragment;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         tabHost.setup(this, getSupportFragmentManager(), R.id.content_frame);
 
         tabHost.addTab(tabHost.newTabSpec("Plans").setIndicator("Plans", null), MainActivityFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec("Requests").setIndicator("Requests", null), MainActivityFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("Requests").setIndicator("Requests", null), RequestFragment.class, null);
 
     }
 
