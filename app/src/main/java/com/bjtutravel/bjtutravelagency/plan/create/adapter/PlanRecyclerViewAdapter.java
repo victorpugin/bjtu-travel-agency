@@ -65,6 +65,10 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         mValues.add(plan);
     }
 
+    public ArrayList<ItemPlan> getItemPlans() {
+        return mValues;
+    }
+
     // BASE VIEW HOLDER
     abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         public ItemPlan mItem;

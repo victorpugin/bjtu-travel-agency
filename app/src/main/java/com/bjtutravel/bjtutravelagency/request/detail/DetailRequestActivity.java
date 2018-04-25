@@ -56,6 +56,7 @@ public class DetailRequestActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent in = new Intent(DetailRequestActivity.this, CreatePlanActivity.class);
+                    in.putExtras(getIntent());
                     startActivity(in);
                 }
             });

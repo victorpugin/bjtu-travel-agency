@@ -9,16 +9,31 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.bjtutravel.bjtutravelagency.R;
+import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
+import com.bjtutravel.bjtutravelagency.models.Request;
 import com.bjtutravel.bjtutravelagency.plan.create.adapter.PlanRecyclerViewAdapter;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
+import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class CreatePlanActivity extends AppCompatActivity {
+    private static final String TAG = "CreatePlanActivity";
 
+    private Request mRequest;
     private PlanRecyclerViewAdapter adapter;
 
     @Override
@@ -30,6 +45,10 @@ public class CreatePlanActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setTitle(R.string.create_plan_activity);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            mRequest = (Request) extras.get("request");
 
         createListView();
     }
@@ -82,13 +101,61 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         // add new item in view and notify
         adapter.addItemPlan(itemPlan);
+
+        // TODO: not working, reset the view when adding an element
         adapter.notifyDataSetChanged();
     }
 
     // FIREBASE SAVE
     private void savePlan() {
-        String userId = UtilFirebase.getFirebaseUserId();
-        if (userId == null)
-            return;
+        // Get Data
+        EditText titleEdtText = (EditText)findViewById(R.id.edit_plan_title);
+
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.CHINESE);
+
+        String dateString = format.format(date);
+
+        // Create InfoPlan object map
+        InfoPlan infoPlan = new InfoPlan();
+        infoPlan.setUserId(mRequest.getUserId());
+        infoPlan.setUserName(UtilFirebase.getFirebaseUser().getDisplayName());
+        infoPlan.setTitle(titleEdtText.getText().toString());
+        infoPlan.setDate(dateString);
+        Map<String, Object> requestValues = infoPlan.toMap();
+
+        // Create new entry in Firebase db and get key
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        //String infoKey = db.child("info-plans").push().getKey(); // use request getkey instead
+
+        // Update children to add new entry
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("/info-plans/" + mRequest.getKey(), requestValues);
+        childUpdates.put("/user-info-plans/" + mRequest.getUserId() + "/" + mRequest.getKey(), requestValues);
+
+        // TODO: Not working, need to get correctly data from views
+        for (ItemPlan itemPlan : adapter.getItemPlans()) {
+            String itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();
+            String endpoint = "/plans/" + mRequest.getKey() + "/" + itemKey;
+            childUpdates.put(endpoint, itemPlan.toMap());
+        }
+
+        db.updateChildren(childUpdates, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    UtilSnackbar.showSnakbar(
+                            findViewById(android.R.id.content),
+                            getResources().getString(R.string.title));
+                    Log.d(TAG, "SavePlan success");
+                    finish();
+                } else {
+                    UtilSnackbar.showSnakbar(
+                            findViewById(android.R.id.content),
+                            databaseError.getMessage());
+                    Log.e(TAG, "SavePlan failed: " + databaseError.getMessage());
+                }
+            }
+        });
     }
 }

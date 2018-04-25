@@ -2,32 +2,29 @@ package com.bjtutravel.bjtutravelagency.models;
 
 import com.google.firebase.database.Exclude;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
-public class Request implements Serializable {
+public class InfoPlan {
     private String userId;
     private String userName;
     private String title;
-    private String message;
     private String date;
     @Exclude
     private String key;
 
-    public Request() {
+    public InfoPlan() {
 
     }
 
     public HashMap<String, Object> toMap() {
-        HashMap<String, Object> request = new HashMap<String, Object>();
+        HashMap<String, Object> plan = new HashMap<String, Object>();
 
-        request.put("userId", userId);
-        request.put("userName", userName);
-        request.put("title", title);
-        request.put("message", message);
-        request.put("date", date);
+        plan.put("userId", userId);
+        plan.put("userName", userName);
+        plan.put("title", title);
+        plan.put("date", date);
 
-        return request;
+        return plan;
     }
 
     public String getUserId() {
@@ -52,14 +49,6 @@ public class Request implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public String getDate() {
