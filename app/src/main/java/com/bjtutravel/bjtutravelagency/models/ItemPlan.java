@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class ItemPlan {
     @Exclude
-    public static final String TYPE_EDIT_TEXT = "type.edit.text";
+    public static final Integer TYPE_EDIT_TEXT = 1;
 
-    private String type;
+    private Integer type;
     private String content;
 
     public ItemPlan() {
@@ -24,11 +24,11 @@ public class ItemPlan {
         return plan;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

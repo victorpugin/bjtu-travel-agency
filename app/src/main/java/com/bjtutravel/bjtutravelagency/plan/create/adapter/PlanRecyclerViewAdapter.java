@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
@@ -14,6 +13,7 @@ import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import java.util.ArrayList;
 
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.BaseViewHolder> {
+    private static final String TAG = "PlanRecyclerViewAdapter";
 
     private ArrayList<ItemPlan> mValues;
 
@@ -24,33 +24,20 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        /* switch (viewType) {
-             case 0: return new ViewHolder0(...);
-             case 2: return new ViewHolder2(...);
-             ...
-         } */
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.plan_item_edit_text, parent, false);
-        return new EditTextViewHolder(view);
+         switch (viewType) {
+             case 1: // EDIT TEXT VIEW
+                 return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
+             case 2: // TEMPORARY USELESS
+                 return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
+         }
+
+         // USELESS, what to do ?
+        return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        /* switch (holder.getItemViewType()) {
-            case 0:
-                ViewHolder0 viewHolder0 = (ViewHolder0)holder;
-                ...
-                break;
-
-            case 2:
-                ViewHolder2 viewHolder2 = (ViewHolder2)holder;
-                ...
-                break;
-        } */
-        EditTextViewHolder editTextHolder = (EditTextViewHolder)holder;
-
-        editTextHolder.mItem = mValues.get(position);
-        editTextHolder.textEdt.setText(mValues.get(position).getContent());
+        holder.onBind(mValues.get(position));
     }
 
     @Override
@@ -60,10 +47,13 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        // Just as an example, return 0 or 2 depending on position
-        // Note that unlike in ListView adapters, types don't have to be contiguous
-        // return position % 2 * 2;
-        return super.getItemViewType(position);
+        return mValues.get(position).getType();
+    }
+
+    // UTIL LAYOUT INFLATER
+    private View utilLayoutInflater(@NonNull ViewGroup parent, int ressource) {
+        return LayoutInflater.from(parent.getContext())
+                .inflate(ressource, parent, false);
     }
 
     // DATA OPERATIONS
@@ -76,12 +66,14 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     }
 
     // BASE VIEW HOLDER
-    class BaseViewHolder extends RecyclerView.ViewHolder {
+    abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         public ItemPlan mItem;
 
         public BaseViewHolder(View itemView) {
             super(itemView);
         }
+
+        public abstract void onBind(ItemPlan itemPlan);
     }
 
     // EDIT TEXT VIEW HOLDER
@@ -92,6 +84,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
             super(itemView);
 
             textEdt = (EditText) itemView.findViewById(R.id.edit_text);
+        }
+
+        @Override
+        public void onBind(ItemPlan itemPlan) {
+            mItem = itemPlan;
+            textEdt.setText(itemPlan.getContent());
         }
 
         @Override

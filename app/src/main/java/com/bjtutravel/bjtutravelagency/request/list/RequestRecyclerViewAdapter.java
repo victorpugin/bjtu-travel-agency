@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestRecyclerViewAdapter extends RecyclerView.Adapter<RequestRecyclerViewAdapter.ViewHolder> {
+    private static final String TAG = "RequestRecyclerViewAdapter";
 
     private final OnListFragmentInteractionListener mListener;
     private ArrayList<Request> mValues;
