@@ -22,7 +22,11 @@ import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 
@@ -30,23 +34,23 @@ public class MainActivity extends AppCompatActivity
         implements RequestFragment.OnListFragmentInteractionListener {
     private static final String TAG = "MainActivity";
 
-    private FragmentTabHost tabHost;
+    private boolean mUserIsAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // FIREBASE AUTH
-        loadCurrentUser();
-
-        // START HERE, USER IS AUTHENTICATE
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
         // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // FIREBASE AUTH
+        loadCurrentUser();
+        // START HERE, USER IS AUTHENTICATE
+    }
+
+    private void onCreateUser() {
         // FLOATING BUTTON
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,14 +65,28 @@ public class MainActivity extends AppCompatActivity
         loadContentFragment();
     }
 
+    private void onCreateAdmin() {
+        mUserIsAdmin = true;
+
+        // FLOATING BUTTON
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.hide();
+
+        // FRAGMENT MANAGER
+        loadContentFragment();
+    }
+
+
     // FRAGMENT MANAGER
     public void loadContentFragment() {
-        tabHost = (FragmentTabHost)findViewById(R.id.tabhost);
+        FragmentTabHost tabHost = (FragmentTabHost) findViewById(R.id.tabhost);
         tabHost.setup(this, getSupportFragmentManager(), R.id.content_frame);
 
-        tabHost.addTab(tabHost.newTabSpec("Plans").setIndicator("Plans", null), MainActivityFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec("Requests").setIndicator("Requests", null), RequestFragment.class, null);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(RequestFragment.KEY_ADMIN, mUserIsAdmin);
 
+        tabHost.addTab(tabHost.newTabSpec("Plans").setIndicator("Plans", null), MainActivityFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("Requests").setIndicator("Requests", null), RequestFragment.class, bundle);
     }
 
     // TOOLBAR
@@ -100,7 +118,7 @@ public class MainActivity extends AppCompatActivity
     // FIREBASE AUTH
     private void loadCurrentUser() {
 
-        FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
+        final FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
 
         if (firebaseUser == null){
             //Not signed in, launch the Sign In Activity
@@ -109,17 +127,36 @@ public class MainActivity extends AppCompatActivity
             finish();
             return;
         }else {
-            String mUsername = firebaseUser.getDisplayName();
-            String mEmailAddress = firebaseUser.getEmail();
-            showSnackbar("User: " + mUsername + ". Email: " + mEmailAddress);
+            // USER AUTHENTICATE, get user privileges
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("privileges");
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    // Check user privilege and call onCreate corresponding
+                    if (dataSnapshot.hasChild(firebaseUser.getUid())) {
+                        onCreateAdmin();
+                    } else {
+                        onCreateUser();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.w(TAG, "loadCurrentUser:onCancelled", databaseError.toException());
+                }
+            });
         }
     }
+
 
     // REQUEST LISTENER
     @Override
     public void onListFragmentInteraction(Request request) {
         Intent newIntent = new Intent(MainActivity.this, DetailRequestActivity.class);
         newIntent.putExtra("request", request);
+        newIntent.putExtra(DetailRequestActivity.KEY_ADMIN, mUserIsAdmin);
         MainActivity.this.startActivity(newIntent);
     }
 

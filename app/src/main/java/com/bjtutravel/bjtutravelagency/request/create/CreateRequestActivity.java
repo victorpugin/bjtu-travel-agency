@@ -83,6 +83,7 @@ public class CreateRequestActivity extends AppCompatActivity {
 
         // Create Request object map
         Request request = new Request();
+        request.setUserName(UtilFirebase.getFirebaseUser().getDisplayName());
         request.setTitle(titleEdtText.getText().toString());
         request.setMessage(messageEdtText.getText().toString());
         request.setDate(dateString);

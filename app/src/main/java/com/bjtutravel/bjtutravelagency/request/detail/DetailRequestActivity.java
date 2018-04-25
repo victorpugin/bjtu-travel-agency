@@ -2,6 +2,7 @@ package com.bjtutravel.bjtutravelagency.request.detail;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,11 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DetailRequestActivity extends AppCompatActivity {
+    private static final String TAG = "DetailRequestActivity";
+
+    public static final String KEY_ADMIN = "com.bjtutravel.bjtutravelagency.KEY_ADMIN";
+
+    private boolean mUserIsAdmin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +30,25 @@ public class DetailRequestActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        setTitle(R.string.create_request_activity);
+        setTitle(R.string.detail_request_activity);
 
         // Get Request and bind to view
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             Request request = (Request) extras.get("request");
+            mUserIsAdmin = extras.getBoolean(KEY_ADMIN);
             if (request != null) {
+                TextView userText = (TextView) findViewById(R.id.request_user);
                 TextView titleText = (TextView) findViewById(R.id.request_title);
                 TextView messageText = (TextView) findViewById(R.id.request_message);
                 TextView dateText = (TextView)findViewById(R.id.request_date);
 
+                if (mUserIsAdmin) {
+                    userText.setText(request.getUserName());
+                    userText.setVisibility(View.VISIBLE);
+                } else {
+                    userText.setVisibility(View.GONE);
+                }
                 titleText.setText(request.getTitle());
                 messageText.setText(request.getMessage());
                 dateText.setText(request.getDate());

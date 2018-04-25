@@ -15,6 +15,7 @@ import com.bjtutravel.bjtutravelagency.models.Request;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -25,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 public class RequestFragment extends Fragment {
     private static final String TAG = "RequestFragment";
 
+    public static final String KEY_ADMIN = "com.bjtutravel.bjtutravelagency.KEY_ADMIN";
+
+    private boolean mUserIsAdmin = false;
     private OnListFragmentInteractionListener mListener;
     RequestRecyclerViewAdapter adapter;
 
@@ -34,6 +38,9 @@ public class RequestFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle arguments = getArguments();
+        mUserIsAdmin = arguments.getBoolean(KEY_ADMIN);
     }
 
     @Override
@@ -63,8 +70,15 @@ public class RequestFragment extends Fragment {
         if (userId == null)
             return;
 
+        // Change endpoint depending of privilege
+        DatabaseReference ref;
+        if (mUserIsAdmin)
+            ref = db.getReference("requests");
+        else
+            ref = db.getReference("user-requests").child(userId);
+
         // Get requests from db and set them in the view
-        db.getReference("user-requests").child(userId).addListenerForSingleValueEvent(
+        ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -75,6 +89,7 @@ public class RequestFragment extends Fragment {
 
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Request request = data.getValue(Request.class);
+                            request.setKey(data.getKey());
                             adapter.addRequest(request);
                         }
 
@@ -107,16 +122,6 @@ public class RequestFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Request request);
     }
