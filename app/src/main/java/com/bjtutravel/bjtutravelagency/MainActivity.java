@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     private void onCreateAdmin() {
         mUserIsAdmin = true;
+        setTitle(getTitle() + " - Staff");
 
         // FLOATING BUTTON
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
