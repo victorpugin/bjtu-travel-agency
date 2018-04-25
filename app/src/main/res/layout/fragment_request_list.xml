@@ -13,4 +13,3 @@
     android:layout_marginRight="8dp"
     tools:context=".request.list.RequestFragment"
     tools:listitem="@layout/fragment_request" />
-    <!--app:layoutManager="LinearLayoutManager"-->

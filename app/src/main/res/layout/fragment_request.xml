@@ -15,4 +15,3 @@
         android:gravity="left|center_vertical"
         android:textAppearance="?attr/textAppearanceListItem" />
 </LinearLayout>
-    <!--android:layout_margin="@dimen/text_margin"-->
