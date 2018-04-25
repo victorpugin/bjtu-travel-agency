@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.R;
+import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.plan.create.adapter.PlanRecyclerViewAdapter;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +53,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_send_button, menu);
+        inflater.inflate(R.menu.menu_create_plan, menu);
         return true;
     }
 
@@ -63,7 +64,25 @@ public class CreatePlanActivity extends AppCompatActivity {
             return true;
         }
 
+        if (item.getItemId() == R.id.action_add_plan_item) {
+            addPlanItem();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    // ADD PLAN ITEM
+    private void addPlanItem() {
+        // Get wanted plan item with a dialog
+
+        // obtain new ItemPlan object
+        ItemPlan itemPlan = new ItemPlan();
+        itemPlan.setType(ItemPlan.TYPE_EDIT_TEXT);
+
+        // add new item in view and notify
+        adapter.addItemPlan(itemPlan);
+        adapter.notifyDataSetChanged();
     }
 
     // FIREBASE SAVE

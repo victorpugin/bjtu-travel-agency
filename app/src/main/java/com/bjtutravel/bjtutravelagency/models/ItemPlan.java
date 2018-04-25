@@ -1,8 +1,13 @@
 package com.bjtutravel.bjtutravelagency.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.HashMap;
 
 public class ItemPlan {
+    @Exclude
+    public static final String TYPE_EDIT_TEXT = "type.edit.text";
+
     private String type;
     private String content;
 
