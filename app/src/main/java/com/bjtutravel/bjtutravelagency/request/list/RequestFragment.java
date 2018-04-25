@@ -30,7 +30,7 @@ public class RequestFragment extends Fragment {
 
     private boolean mUserIsAdmin = false;
     private OnListFragmentInteractionListener mListener;
-    RequestRecyclerViewAdapter adapter;
+    private RequestRecyclerViewAdapter adapter;
 
     public RequestFragment() {
     }
@@ -83,9 +83,6 @@ public class RequestFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         adapter.resetList();
-
-                        Log.d(TAG, "getRequest:onCancelled " + dataSnapshot.toString());
-                        Log.d(TAG, "count = " + String.valueOf(dataSnapshot.getChildrenCount()) + " values " + dataSnapshot.getKey());
 
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
                             Request request = data.getValue(Request.class);
