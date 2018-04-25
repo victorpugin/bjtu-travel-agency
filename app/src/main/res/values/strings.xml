@@ -2,6 +2,8 @@
     <string name="app_name">Bjtu Travel Agency</string>
     <string name="create_request_activity">New request</string>
     <string name="detail_request_activity">Request</string>
+    <string name="create_plan_activity">New travel plan</string>
+    <string name="detail_plan_activity">Travel plan</string>
 
     <string name="sign_in_cancelled">Sign in cancelled.</string>
     <string name="no_internet_connection">Internet connection error.</string>

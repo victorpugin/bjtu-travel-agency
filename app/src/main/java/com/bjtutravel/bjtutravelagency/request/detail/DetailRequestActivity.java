@@ -1,5 +1,7 @@
 package com.bjtutravel.bjtutravelagency.request.detail;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.Request;
+import com.bjtutravel.bjtutravelagency.plan.create.CreatePlanActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +35,37 @@ public class DetailRequestActivity extends AppCompatActivity {
 
         setTitle(R.string.detail_request_activity);
 
+        bindDataView();
+
+        setFloatingButton();
+    }
+
+    // ACTION BAR
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    // FLOATING BUTTON
+    private void setFloatingButton() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        if (mUserIsAdmin) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent in = new Intent(DetailRequestActivity.this, CreatePlanActivity.class);
+                    startActivity(in);
+                }
+            });
+        } else {
+            fab.hide();
+        }
+    }
+
+    // Bind data class to view
+    private void bindDataView() {
         // Get Request and bind to view
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
@@ -54,12 +88,5 @@ public class DetailRequestActivity extends AppCompatActivity {
                 dateText.setText(request.getDate());
             }
         }
-    }
-
-    // ACTION BAR
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
 }
