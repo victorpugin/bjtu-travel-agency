@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class ItemPlan {
     @Exclude
-    public static final Integer TYPE_EDIT_TEXT = 1;
+    public static final Integer TYPE_TEXT = 1;
 
     private Integer type;
     private String content;

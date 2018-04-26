@@ -61,7 +61,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         // Set the adapter
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PlanRecyclerViewAdapter();
+        adapter = new PlanRecyclerViewAdapter(true);
         mRecyclerView.setAdapter(adapter);
     }
 
@@ -103,7 +103,7 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         // obtain new ItemPlan object
         ItemPlan itemPlan = new ItemPlan();
-        itemPlan.setType(ItemPlan.TYPE_EDIT_TEXT);
+        itemPlan.setType(ItemPlan.TYPE_TEXT);
 
         // add new item in view and notify
         adapter.addItemPlan(itemPlan);

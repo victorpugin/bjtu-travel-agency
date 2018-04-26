@@ -16,16 +16,18 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     private static final String TAG = "PlanRecyclerViewAdapter";
 
     private ArrayList<ItemPlan> mValues;
+    private boolean modeEdit;
 
-    public PlanRecyclerViewAdapter() {
+    public PlanRecyclerViewAdapter(boolean modeEdit) {
         this.mValues = new ArrayList<>();
+        this.modeEdit = modeEdit;
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
          switch (viewType) {
-             case 1: // EDIT TEXT VIEW
+             case 101: // EDIT TEXT VIEW
                  return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
              case 2: // TEMPORARY USELESS
                  return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
@@ -47,7 +49,10 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        return mValues.get(position).getType();
+        int res = mValues.get(position).getType();
+        if (modeEdit)
+            res += 100;
+        return res;
     }
 
     // UTIL LAYOUT INFLATER
