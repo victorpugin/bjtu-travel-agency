@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
+import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.Request;
+import com.bjtutravel.bjtutravelagency.plan.list.PlanFragment;
 import com.bjtutravel.bjtutravelagency.request.create.CreateRequestActivity;
 import com.bjtutravel.bjtutravelagency.request.detail.DetailRequestActivity;
 import com.bjtutravel.bjtutravelagency.request.list.RequestFragment;
@@ -31,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity
-        implements RequestFragment.OnListFragmentInteractionListener {
+        implements RequestFragment.OnListFragmentInteractionListener, PlanFragment.OnListFragmentInteractionListener {
     private static final String TAG = "MainActivity";
 
     private boolean mUserIsAdmin = false;
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         Bundle bundle = new Bundle();
         bundle.putBoolean(RequestFragment.KEY_ADMIN, mUserIsAdmin);
 
-        tabHost.addTab(tabHost.newTabSpec("Plans").setIndicator("Plans", null), MainActivityFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec("Plans").setIndicator("Plans", null), PlanFragment.class, bundle);
         tabHost.addTab(tabHost.newTabSpec("Requests").setIndicator("Requests", null), RequestFragment.class, bundle);
     }
 
@@ -159,6 +161,12 @@ public class MainActivity extends AppCompatActivity
         newIntent.putExtra("request", request);
         newIntent.putExtra(DetailRequestActivity.KEY_ADMIN, mUserIsAdmin);
         MainActivity.this.startActivity(newIntent);
+    }
+
+    // PLAN LISTENER
+    @Override
+    public void onListFragmentInteraction(InfoPlan infoPlan) {
+
     }
 
     private void showSnackbar(String msg) {

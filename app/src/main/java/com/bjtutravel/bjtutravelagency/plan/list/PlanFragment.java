@@ -1,4 +1,4 @@
-package com.bjtutravel.bjtutravelagency.request.list;
+package com.bjtutravel.bjtutravelagency.plan.list;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bjtutravel.bjtutravelagency.R;
-import com.bjtutravel.bjtutravelagency.models.Request;
+import com.bjtutravel.bjtutravelagency.models.InfoPlan;
+import com.bjtutravel.bjtutravelagency.plan.list.adapter.InfoPlanRecyclerViewAdapter;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,20 +20,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 /**
  * A fragment representing a list of Items.
  */
-public class RequestFragment extends Fragment {
-    private static final String TAG = "RequestFragment";
+public class PlanFragment extends Fragment {
+    private static final String TAG = "PlanFragment";
 
     public static final String KEY_ADMIN = "com.bjtutravel.bjtutravelagency.KEY_ADMIN";
 
     private boolean mUserIsAdmin = false;
     private OnListFragmentInteractionListener mListener;
-    private RequestRecyclerViewAdapter adapter;
+    private InfoPlanRecyclerViewAdapter adapter;
 
-    public RequestFragment() {
+    public PlanFragment() {
     }
 
     @Override
@@ -48,12 +48,12 @@ public class RequestFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plan_list, container, false);
 
-        // Set the adapter
+        // Set the adapter // TODO: ADAPTER NOT DECLARED HERE
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            adapter = new RequestRecyclerViewAdapter(mListener);
+            adapter = new InfoPlanRecyclerViewAdapter(mListener);
             recyclerView.setAdapter(adapter);
         }
 
@@ -73,9 +73,9 @@ public class RequestFragment extends Fragment {
         // Change endpoint depending of privilege
         DatabaseReference ref;
         if (mUserIsAdmin)
-            ref = db.getReference("requests");
+            ref = db.getReference("info-plans");
         else
-            ref = db.getReference("user-requests").child(userId);
+            ref = db.getReference("user-info-plans").child(userId);
 
         // Get requests from db and set them in the view
         ref.addListenerForSingleValueEvent(
@@ -85,9 +85,9 @@ public class RequestFragment extends Fragment {
                         adapter.resetList();
 
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            Request request = data.getValue(Request.class);
-                            request.setKey(data.getKey());
-                            adapter.addRequest(request);
+                            InfoPlan infoPlan = data.getValue(InfoPlan.class);
+                            infoPlan.setKey(data.getKey());
+                            adapter.addInfoPlan(infoPlan);
                         }
 
                         adapter.notifyDataSetChanged();
@@ -95,7 +95,7 @@ public class RequestFragment extends Fragment {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "getRequest:onCancelled", databaseError.toException());
+                        Log.w(TAG, "getInfoPlan:onCancelled", databaseError.toException());
                     }
                 }
         );
@@ -120,7 +120,7 @@ public class RequestFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Request request);
+        void onListFragmentInteraction(InfoPlan infoPlan);
     }
 
 }

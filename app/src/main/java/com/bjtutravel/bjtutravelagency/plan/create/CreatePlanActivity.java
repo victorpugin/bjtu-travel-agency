@@ -119,7 +119,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         // Create InfoPlan object map
         InfoPlan infoPlan = new InfoPlan();
         infoPlan.setUserId(mRequest.getUserId());
-        infoPlan.setUserName(UtilFirebase.getFirebaseUser().getDisplayName());
+        infoPlan.setUserName(mRequest.getUserName());
         infoPlan.setTitle(titleEdtText.getText().toString());
         infoPlan.setDate(dateString);
         Map<String, Object> requestValues = infoPlan.toMap();
