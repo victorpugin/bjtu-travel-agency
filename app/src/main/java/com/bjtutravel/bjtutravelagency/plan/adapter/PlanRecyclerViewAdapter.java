@@ -13,6 +13,7 @@ import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.BaseViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.EditTextViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.TextViewHolder;
+import com.bjtutravel.bjtutravelagency.plan.adapter.listener.EditTextListener;
 
 import java.util.ArrayList;
 
@@ -34,14 +35,22 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
              case 1: // TEXT VIEW
                  return new TextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_text_view));
              case 101: // EDIT TEXT VIEW
-                 return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
+                 return new EditTextViewHolder(
+                         utilLayoutInflater(parent, R.layout.plan_item_edit_text),
+                         new EditTextListener(this));
              case 2: // TEMPORARY USELESS
-                 return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
+                 return new EditTextViewHolder(utilLayoutInflater(
+                         parent, R.layout.plan_item_edit_text),
+                         new EditTextListener(this));
          }
 
          // USELESS, what to do ?
-        return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
+        return new EditTextViewHolder(utilLayoutInflater(
+                parent, R.layout.plan_item_edit_text),
+                new EditTextListener(this));
     }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
@@ -77,7 +86,11 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
         this.notifyItemInserted(mValues.size() - 1);
     }
 
-    public ArrayList<ItemPlan> getItemPlans() {
+    public ItemPlan getItemPlan(int position) {
+        return mValues.get(position);
+    }
+
+    public ArrayList<ItemPlan> getItemPlanList() {
         return mValues;
     }
 }

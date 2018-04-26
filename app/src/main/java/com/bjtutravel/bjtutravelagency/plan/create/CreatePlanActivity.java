@@ -102,6 +102,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         // obtain new ItemPlan object
         ItemPlan itemPlan = new ItemPlan();
         itemPlan.setType(ItemPlan.TYPE_TEXT);
+        itemPlan.setContent("Text");
 
         // add new item in view and notify
         adapter.addItemPlan(itemPlan);
@@ -127,17 +128,13 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         // Create new entry in Firebase db and get key
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        //String infoKey = db.child("info-plans").push().getKey(); // use request getkey instead
 
         // Update children to add new entry
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/info-plans/" + mRequest.getKey(), requestValues);
         childUpdates.put("/user-info-plans/" + mRequest.getUserId() + "/" + mRequest.getKey(), requestValues);
 
-        for (int i = 0 ; i < mRecyclerView.getChildCount() ; i++) {
-            BaseViewHolder holder = (BaseViewHolder)mRecyclerView.findViewHolderForAdapterPosition(i);
-            ItemPlan itemPlan = holder.getItemPlan();
-
+        for (ItemPlan itemPlan : adapter.getItemPlanList()) {
             String itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();
             String endpoint = "/plans/" + mRequest.getKey() + "/" + itemKey;
             childUpdates.put(endpoint, itemPlan.toMap());

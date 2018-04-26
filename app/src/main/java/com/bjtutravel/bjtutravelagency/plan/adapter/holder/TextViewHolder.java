@@ -17,15 +17,20 @@ public class TextViewHolder extends BaseViewHolder {
 
     @Override
     public void onBind(ItemPlan itemPlan) {
-        mItem = itemPlan;
         textView.setText(itemPlan.getContent());
     }
 
-    @Override
-    public ItemPlan getItemPlan() {
-        mItem.setContent(textView.getText().toString());
-        return mItem;
-    }
+    /*private boolean setValue(Object value, TextView textView) {
+        if (value != null) {
+            if (!value.toString().isEmpty()) {
+                textView.setText(String.valueOf(value));
+                textView.setVisibility(View.VISIBLE);
+                return true;
+            }
+        } else
+            textView.setVisibility(View.INVISIBLE);
+        return false;
+    }*/
 
     @Override
     public String toString() {
