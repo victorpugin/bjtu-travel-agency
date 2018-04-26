@@ -1,4 +1,4 @@
-package com.bjtutravel.bjtutravelagency.plan.create.adapter;
+package com.bjtutravel.bjtutravelagency.plan.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

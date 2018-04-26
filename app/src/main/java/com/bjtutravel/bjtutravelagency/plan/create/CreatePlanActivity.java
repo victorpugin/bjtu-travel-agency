@@ -1,6 +1,5 @@
 package com.bjtutravel.bjtutravelagency.plan.create;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,14 +14,12 @@ import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.models.Request;
-import com.bjtutravel.bjtutravelagency.plan.create.adapter.PlanRecyclerViewAdapter;
+import com.bjtutravel.bjtutravelagency.plan.adapter.PlanRecyclerViewAdapter;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
