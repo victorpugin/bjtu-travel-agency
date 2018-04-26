@@ -63,6 +63,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     public void addItemPlan(ItemPlan plan) {
         mValues.add(plan);
+        this.notifyItemInserted(mValues.size() - 1);
     }
 
     public ArrayList<ItemPlan> getItemPlans() {

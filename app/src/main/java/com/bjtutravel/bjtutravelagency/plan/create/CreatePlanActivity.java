@@ -36,6 +36,8 @@ public class CreatePlanActivity extends AppCompatActivity {
     private Request mRequest;
     private PlanRecyclerViewAdapter adapter;
 
+    private boolean mActionProcessing = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,17 +80,20 @@ public class CreatePlanActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (mActionProcessing) return false;
+
         if (item.getItemId() == R.id.action_send) {
+            mActionProcessing = true;
             savePlan();
-            return true;
-        }
-
-        if (item.getItemId() == R.id.action_add_plan_item) {
+        } else if (item.getItemId() == R.id.action_add_plan_item) {
+            mActionProcessing = true;
             addPlanItem();
-            return true;
+            mActionProcessing = false;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     // ADD PLAN ITEM
@@ -101,9 +106,6 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         // add new item in view and notify
         adapter.addItemPlan(itemPlan);
-
-        // TODO: not working, reset the view when adding an element
-        adapter.notifyDataSetChanged();
     }
 
     // FIREBASE SAVE
@@ -154,6 +156,7 @@ public class CreatePlanActivity extends AppCompatActivity {
                             findViewById(android.R.id.content),
                             databaseError.getMessage());
                     Log.e(TAG, "SavePlan failed: " + databaseError.getMessage());
+                    mActionProcessing = false;
                 }
             }
         });
