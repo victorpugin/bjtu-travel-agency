@@ -24,6 +24,7 @@ public class DetailRequestActivity extends AppCompatActivity {
     public static final String KEY_ADMIN = "com.bjtutravel.bjtutravelagency.KEY_ADMIN";
 
     private boolean mUserIsAdmin = false;
+    private Request mRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,13 @@ public class DetailRequestActivity extends AppCompatActivity {
 
         setTitle(R.string.detail_request_activity);
 
-        bindDataView();
+        if (getIntent().getExtras() != null) {
+            Bundle extras = getIntent().getExtras();
+            mUserIsAdmin = extras.getBoolean(KEY_ADMIN);
+            mRequest = (Request) extras.get("request");
+
+            bindDataView();
+        }
 
         setFloatingButton();
     }
@@ -68,26 +75,21 @@ public class DetailRequestActivity extends AppCompatActivity {
     // Bind data class to view
     private void bindDataView() {
         // Get Request and bind to view
-        if (getIntent().getExtras() != null) {
-            Bundle extras = getIntent().getExtras();
-            Request request = (Request) extras.get("request");
-            mUserIsAdmin = extras.getBoolean(KEY_ADMIN);
-            if (request != null) {
-                TextView userText = (TextView) findViewById(R.id.request_user);
-                TextView titleText = (TextView) findViewById(R.id.request_title);
-                TextView messageText = (TextView) findViewById(R.id.request_message);
-                TextView dateText = (TextView)findViewById(R.id.request_date);
+        if (mRequest != null) {
+            TextView userText = (TextView) findViewById(R.id.request_user);
+            TextView titleText = (TextView) findViewById(R.id.request_title);
+            TextView messageText = (TextView) findViewById(R.id.request_message);
+            TextView dateText = (TextView)findViewById(R.id.request_date);
 
-                if (mUserIsAdmin) {
-                    userText.setText(request.getUserName());
-                    userText.setVisibility(View.VISIBLE);
-                } else {
-                    userText.setVisibility(View.GONE);
-                }
-                titleText.setText(request.getTitle());
-                messageText.setText(request.getMessage());
-                dateText.setText(request.getDate());
+            if (mUserIsAdmin) {
+                userText.setText(mRequest.getUserName());
+                userText.setVisibility(View.VISIBLE);
+            } else {
+                userText.setVisibility(View.GONE);
             }
+            titleText.setText(mRequest.getTitle());
+            messageText.setText(mRequest.getMessage());
+            dateText.setText(mRequest.getDate());
         }
     }
 }

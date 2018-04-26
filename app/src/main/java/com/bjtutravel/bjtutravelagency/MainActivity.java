@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.bjtutravel.bjtutravelagency.auth.AuthUiActivity;
 import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.Request;
+import com.bjtutravel.bjtutravelagency.plan.detail.DetailPlanActivity;
 import com.bjtutravel.bjtutravelagency.plan.list.PlanFragment;
 import com.bjtutravel.bjtutravelagency.request.create.CreateRequestActivity;
 import com.bjtutravel.bjtutravelagency.request.detail.DetailRequestActivity;
@@ -166,7 +167,10 @@ public class MainActivity extends AppCompatActivity
     // PLAN LISTENER
     @Override
     public void onListFragmentInteraction(InfoPlan infoPlan) {
-
+        Intent newIntent = new Intent(MainActivity.this, DetailPlanActivity.class);
+        newIntent.putExtra("infoPlan", infoPlan);
+        newIntent.putExtra(DetailRequestActivity.KEY_ADMIN, mUserIsAdmin);
+        MainActivity.this.startActivity(newIntent);
     }
 
     private void showSnackbar(String msg) {

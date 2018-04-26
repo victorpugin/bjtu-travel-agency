@@ -2,9 +2,10 @@ package com.bjtutravel.bjtutravelagency.models;
 
 import com.google.firebase.database.Exclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class InfoPlan {
+public class InfoPlan implements Serializable {
     private String userId;
     private String userName;
     private String title;

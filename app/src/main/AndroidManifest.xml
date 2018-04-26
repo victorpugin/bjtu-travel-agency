@@ -25,7 +25,8 @@
         <activity android:name=".auth.AuthUiActivity" />
         <activity android:name=".request.create.CreateRequestActivity" />
         <activity android:name=".request.detail.DetailRequestActivity" />
-        <activity android:name=".plan.create.CreatePlanActivity"></activity>
+        <activity android:name=".plan.create.CreatePlanActivity" />
+        <activity android:name=".plan.detail.DetailPlanActivity"></activity>
     </application>
 
 </manifest>
