@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
@@ -27,6 +28,8 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
          switch (viewType) {
+             case 1: // TEXT VIEW
+                 return new TextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_text_view));
              case 101: // EDIT TEXT VIEW
                  return new EditTextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_edit_text));
              case 2: // TEMPORARY USELESS
@@ -113,6 +116,34 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         @Override
         public String toString() {
             return super.toString() + " '" + textEdt.getText() + "'";
+        }
+    }
+
+    // EDIT TEXT VIEW HOLDER
+    class TextViewHolder extends BaseViewHolder {
+        public final TextView textView;
+
+        public TextViewHolder(View itemView) {
+            super(itemView);
+
+            textView = (TextView) itemView.findViewById(R.id.text_view);
+        }
+
+        @Override
+        public void onBind(ItemPlan itemPlan) {
+            mItem = itemPlan;
+            textView.setText(itemPlan.getContent());
+        }
+
+        @Override
+        public ItemPlan getItemPlan() {
+            mItem.setContent(textView.getText().toString());
+            return mItem;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + " '" + textView.getText() + "'";
         }
     }
 }

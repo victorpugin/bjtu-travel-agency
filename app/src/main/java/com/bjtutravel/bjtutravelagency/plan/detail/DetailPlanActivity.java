@@ -28,7 +28,6 @@ public class DetailPlanActivity extends AppCompatActivity {
     private boolean mUserIsAdmin = false;
     private InfoPlan mInfoPlan;
 
-    private RecyclerView mRecyclerView;
     private PlanRecyclerViewAdapter adapter;
 
     @Override
@@ -119,7 +118,7 @@ public class DetailPlanActivity extends AppCompatActivity {
 
     private void createRecyclerView() {
         // Set the adapter
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PlanRecyclerViewAdapter(false);
         mRecyclerView.setAdapter(adapter);
