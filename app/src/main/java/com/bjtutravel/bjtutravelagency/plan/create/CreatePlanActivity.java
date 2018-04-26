@@ -34,6 +34,7 @@ public class CreatePlanActivity extends AppCompatActivity {
     private static final String TAG = "CreatePlanActivity";
 
     private Request mRequest;
+    private RecyclerView mRecyclerView;
     private PlanRecyclerViewAdapter adapter;
 
     private boolean mActionProcessing = false;
@@ -58,10 +59,10 @@ public class CreatePlanActivity extends AppCompatActivity {
     // LIST VIEW
     private void createListView() {
         // Set the adapter
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PlanRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     // ACTION BAR
@@ -135,8 +136,10 @@ public class CreatePlanActivity extends AppCompatActivity {
         childUpdates.put("/info-plans/" + mRequest.getKey(), requestValues);
         childUpdates.put("/user-info-plans/" + mRequest.getUserId() + "/" + mRequest.getKey(), requestValues);
 
-        // TODO: Not working, need to get correctly data from views
-        for (ItemPlan itemPlan : adapter.getItemPlans()) {
+        for (int i = 0 ; i < mRecyclerView.getChildCount() ; i++) {
+            PlanRecyclerViewAdapter.BaseViewHolder holder = (PlanRecyclerViewAdapter.BaseViewHolder)mRecyclerView.findViewHolderForAdapterPosition(i);
+            ItemPlan itemPlan = holder.getItemPlan();
+
             String itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();
             String endpoint = "/plans/" + mRequest.getKey() + "/" + itemKey;
             childUpdates.put(endpoint, itemPlan.toMap());

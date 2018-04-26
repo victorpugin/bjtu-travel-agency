@@ -71,7 +71,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
     }
 
     // BASE VIEW HOLDER
-    abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+    public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         public ItemPlan mItem;
 
         public BaseViewHolder(View itemView) {
@@ -79,6 +79,8 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         }
 
         public abstract void onBind(ItemPlan itemPlan);
+
+        public abstract ItemPlan getItemPlan();
     }
 
     // EDIT TEXT VIEW HOLDER
@@ -95,6 +97,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
         public void onBind(ItemPlan itemPlan) {
             mItem = itemPlan;
             textEdt.setText(itemPlan.getContent());
+        }
+
+        @Override
+        public ItemPlan getItemPlan() {
+            mItem.setContent(textEdt.getText().toString());
+            return mItem;
         }
 
         @Override
