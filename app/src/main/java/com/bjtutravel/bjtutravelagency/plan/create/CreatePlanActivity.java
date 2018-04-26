@@ -124,6 +124,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         infoPlan.setUserName(mRequest.getUserName());
         infoPlan.setTitle(titleEdtText.getText().toString());
         infoPlan.setDate(dateString);
+        infoPlan.setStaffName(UtilFirebase.getFirebaseUser().getDisplayName());
         Map<String, Object> requestValues = infoPlan.toMap();
 
         // Create new entry in Firebase db and get key

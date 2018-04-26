@@ -10,6 +10,7 @@ public class InfoPlan implements Serializable {
     private String userName;
     private String title;
     private String date;
+    private String staffName;
     @Exclude
     private String key;
 
@@ -24,6 +25,7 @@ public class InfoPlan implements Serializable {
         plan.put("userName", userName);
         plan.put("title", title);
         plan.put("date", date);
+        plan.put("staffName", staffName);
 
         return plan;
     }
@@ -66,5 +68,13 @@ public class InfoPlan implements Serializable {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 }
