@@ -15,6 +15,7 @@ import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.models.Request;
 import com.bjtutravel.bjtutravelagency.plan.adapter.PlanRecyclerViewAdapter;
+import com.bjtutravel.bjtutravelagency.plan.adapter.holder.BaseViewHolder;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.database.DatabaseError;
@@ -134,7 +135,7 @@ public class CreatePlanActivity extends AppCompatActivity {
         childUpdates.put("/user-info-plans/" + mRequest.getUserId() + "/" + mRequest.getKey(), requestValues);
 
         for (int i = 0 ; i < mRecyclerView.getChildCount() ; i++) {
-            PlanRecyclerViewAdapter.BaseViewHolder holder = (PlanRecyclerViewAdapter.BaseViewHolder)mRecyclerView.findViewHolderForAdapterPosition(i);
+            BaseViewHolder holder = (BaseViewHolder)mRecyclerView.findViewHolderForAdapterPosition(i);
             ItemPlan itemPlan = holder.getItemPlan();
 
             String itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();

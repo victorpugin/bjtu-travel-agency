@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
+import com.bjtutravel.bjtutravelagency.plan.adapter.holder.BaseViewHolder;
+import com.bjtutravel.bjtutravelagency.plan.adapter.holder.EditTextViewHolder;
+import com.bjtutravel.bjtutravelagency.plan.adapter.holder.TextViewHolder;
 
 import java.util.ArrayList;
 
-public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerViewAdapter.BaseViewHolder> {
+public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG = "PlanRecyclerViewAdapter";
 
     private ArrayList<ItemPlan> mValues;
@@ -76,74 +79,5 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<PlanRecyclerVi
 
     public ArrayList<ItemPlan> getItemPlans() {
         return mValues;
-    }
-
-    // BASE VIEW HOLDER
-    public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
-        public ItemPlan mItem;
-
-        public BaseViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        public abstract void onBind(ItemPlan itemPlan);
-
-        public abstract ItemPlan getItemPlan();
-    }
-
-    // EDIT TEXT VIEW HOLDER
-    class EditTextViewHolder extends BaseViewHolder {
-        public final EditText textEdt;
-
-        public EditTextViewHolder(View itemView) {
-            super(itemView);
-
-            textEdt = (EditText) itemView.findViewById(R.id.edit_text);
-        }
-
-        @Override
-        public void onBind(ItemPlan itemPlan) {
-            mItem = itemPlan;
-            textEdt.setText(itemPlan.getContent());
-        }
-
-        @Override
-        public ItemPlan getItemPlan() {
-            mItem.setContent(textEdt.getText().toString());
-            return mItem;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + textEdt.getText() + "'";
-        }
-    }
-
-    // EDIT TEXT VIEW HOLDER
-    class TextViewHolder extends BaseViewHolder {
-        public final TextView textView;
-
-        public TextViewHolder(View itemView) {
-            super(itemView);
-
-            textView = (TextView) itemView.findViewById(R.id.text_view);
-        }
-
-        @Override
-        public void onBind(ItemPlan itemPlan) {
-            mItem = itemPlan;
-            textView.setText(itemPlan.getContent());
-        }
-
-        @Override
-        public ItemPlan getItemPlan() {
-            mItem.setContent(textView.getText().toString());
-            return mItem;
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + textView.getText() + "'";
-        }
     }
 }
