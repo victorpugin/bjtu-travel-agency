@@ -38,16 +38,9 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
                  return new EditTextViewHolder(
                          utilLayoutInflater(parent, R.layout.plan_item_edit_text),
                          new EditTextListener(this));
-             case 2: // TEMPORARY USELESS
-                 return new EditTextViewHolder(utilLayoutInflater(
-                         parent, R.layout.plan_item_edit_text),
-                         new EditTextListener(this));
          }
 
-         // USELESS, what to do ?
-        return new EditTextViewHolder(utilLayoutInflater(
-                parent, R.layout.plan_item_edit_text),
-                new EditTextListener(this));
+        return null;
     }
 
 

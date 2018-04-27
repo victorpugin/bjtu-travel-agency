@@ -20,18 +20,6 @@ public class TextViewHolder extends BaseViewHolder {
         textView.setText(itemPlan.getContent());
     }
 
-    /*private boolean setValue(Object value, TextView textView) {
-        if (value != null) {
-            if (!value.toString().isEmpty()) {
-                textView.setText(String.valueOf(value));
-                textView.setVisibility(View.VISIBLE);
-                return true;
-            }
-        } else
-            textView.setVisibility(View.INVISIBLE);
-        return false;
-    }*/
-
     @Override
     public String toString() {
         return super.toString() + " '" + textView.getText() + "'";

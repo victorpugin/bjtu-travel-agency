@@ -26,23 +26,7 @@ public class EditTextViewHolder extends BaseViewHolder {
     public void onBind(ItemPlan itemPlan) {
         mEditTextListener.updatePosition(this.getAdapterPosition());
         textEdt.setText(adapter.getItemPlan(this.getAdapterPosition()).getContent());
-        /*mItem = itemPlan;
-        textEdt.setText(itemPlan.getContent());*/
-        //setValue(itemPlan.getContent(), textEdt);
-
     }
-
-    /*private boolean setValue(Object value, EditText editText) {
-        if (value != null) {
-            if (!value.toString().isEmpty()) {
-                editText.setText(String.valueOf(value));
-                editText.setVisibility(View.VISIBLE);
-                return true;
-            }
-        } else
-            editText.setVisibility(View.INVISIBLE);
-        return false;
-    }*/
 
     @Override
     public String toString() {
