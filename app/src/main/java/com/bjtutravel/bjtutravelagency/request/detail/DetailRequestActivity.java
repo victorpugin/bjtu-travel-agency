@@ -76,10 +76,10 @@ public class DetailRequestActivity extends AppCompatActivity {
     private void bindDataView() {
         // Get Request and bind to view
         if (mRequest != null) {
-            TextView userText = (TextView) findViewById(R.id.request_user);
-            TextView titleText = (TextView) findViewById(R.id.request_title);
+            TextView userText = (TextView) findViewById(R.id.info_plan_user);
+            TextView titleText = (TextView) findViewById(R.id.info_plan_title);
             TextView messageText = (TextView) findViewById(R.id.request_message);
-            TextView dateText = (TextView)findViewById(R.id.request_date);
+            TextView dateText = (TextView)findViewById(R.id.info_plan_date);
 
             if (mUserIsAdmin) {
                 userText.setText(mRequest.getUserName());

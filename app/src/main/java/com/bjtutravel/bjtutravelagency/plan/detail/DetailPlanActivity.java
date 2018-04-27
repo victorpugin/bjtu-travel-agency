@@ -66,15 +66,14 @@ public class DetailPlanActivity extends AppCompatActivity {
 
     // INFO PLAN VIEW
     private void bindInfoPlanView() {
-        TextView userText = (TextView) findViewById(R.id.plan_user);
-        TextView titleText = (TextView) findViewById(R.id.plan_title);
-        TextView dateText = (TextView)findViewById(R.id.plan_date);
+        TextView userText = (TextView) findViewById(R.id.info_plan_user);
+        TextView titleText = (TextView) findViewById(R.id.info_plan_title);
+        TextView dateText = (TextView)findViewById(R.id.info_plan_date);
 
         if (mUserIsAdmin) {
             userText.setText(mInfoPlan.getUserName());
-            userText.setVisibility(View.VISIBLE);
         } else {
-            userText.setVisibility(View.GONE);
+            userText.setText("Wrote by " + mInfoPlan.getStaffName());
         }
         titleText.setText(mInfoPlan.getTitle());
         dateText.setText(mInfoPlan.getDate());
