@@ -33,6 +33,6 @@ public class InfoPlanViewHolder extends BaseViewHolder {
         if (mModeAdmin)
             userView.setText(mInfoPlan.getUserName());
         else
-            userView.setText(mInfoPlan.getStaffName());
+            userView.setText("Wrote by: " + mInfoPlan.getStaffName());
     }
 }

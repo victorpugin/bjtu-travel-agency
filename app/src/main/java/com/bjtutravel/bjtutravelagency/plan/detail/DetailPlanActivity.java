@@ -64,8 +64,8 @@ public class DetailPlanActivity extends AppCompatActivity {
         }
     }
 
-    // INFO PLAN VIEW
-    private void bindInfoPlanView() {
+    // INFO PLAN VIEW TODO: remove when sure new feature work
+    /*private void bindInfoPlanView() {
         TextView userText = (TextView) findViewById(R.id.info_plan_user);
         TextView titleText = (TextView) findViewById(R.id.info_plan_title);
         TextView dateText = (TextView)findViewById(R.id.info_plan_date);
@@ -77,7 +77,7 @@ public class DetailPlanActivity extends AppCompatActivity {
         }
         titleText.setText(mInfoPlan.getTitle());
         dateText.setText(mInfoPlan.getDate());
-    }
+    }*/
 
     // PLAN VIEW
     private void bindPlanView() {

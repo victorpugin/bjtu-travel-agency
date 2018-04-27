@@ -44,7 +44,7 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
          switch (viewType) {
              case 0: // INFO PLAN
                  return new InfoPlanViewHolder(
-                         utilLayoutInflater(parent, R.layout.content_detail_request),
+                         utilLayoutInflater(parent, R.layout.content_info_plan),
                          mInfoPlan, modeAdmin);
              case 1: // TEXT VIEW
                  return new TextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_text_view));
