@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class ItemPlan implements Serializable {
     @Exclude
+    public static final Integer TYPE_INFO_PLAN = 0;
     public static final Integer TYPE_TEXT = 1;
 
     private Integer type;

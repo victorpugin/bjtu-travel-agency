@@ -59,7 +59,7 @@ public class DetailPlanActivity extends AppCompatActivity {
     // Bind data class to view
     private void bindDataView() {
         if (mInfoPlan != null) {
-            bindInfoPlanView();
+            //bindInfoPlanView();
             bindPlanView();
         }
     }
@@ -119,7 +119,7 @@ public class DetailPlanActivity extends AppCompatActivity {
         // Set the adapter
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PlanRecyclerViewAdapter(false);
+        adapter = new PlanRecyclerViewAdapter(mInfoPlan, mUserIsAdmin, false);
         mRecyclerView.setAdapter(adapter);
     }
 }

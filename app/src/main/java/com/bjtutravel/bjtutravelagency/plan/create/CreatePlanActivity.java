@@ -125,19 +125,27 @@ public class CreatePlanActivity extends AppCompatActivity {
         infoPlan.setTitle(titleEdtText.getText().toString());
         infoPlan.setDate(dateString);
         infoPlan.setStaffName(UtilFirebase.getFirebaseUser().getDisplayName());
-        Map<String, Object> requestValues = infoPlan.toMap();
 
         // Create new entry in Firebase db and get key
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
 
         // Update children to add new entry
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/info-plans/" + mRequest.getKey(), requestValues);
-        childUpdates.put("/user-info-plans/" + mRequest.getUserId() + "/" + mRequest.getKey(), requestValues);
 
+        // update info plan entry
+        childUpdates.put("/info-plans/" + mRequest.getKey(), infoPlan.toMap());
+        childUpdates.put("/user-info-plans/" + mRequest.getUserId() + "/" + mRequest.getKey(), infoPlan.toMap());
+        // add first node of plans with info plan (to have info-plan as header of list view)
+        String itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();
+        String endpoint = "/plans/" + mRequest.getKey() + "/" + itemKey;
+        ItemPlan itemInfoPlan = new ItemPlan();
+        itemInfoPlan.setType(ItemPlan.TYPE_INFO_PLAN);
+        childUpdates.put(endpoint, itemInfoPlan.toMap());
+
+        // update item plans
         for (ItemPlan itemPlan : adapter.getItemPlanList()) {
-            String itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();
-            String endpoint = "/plans/" + mRequest.getKey() + "/" + itemKey;
+            itemKey = db.child("plans").child(mRequest.getKey()).push().getKey();
+            endpoint = "/plans/" + mRequest.getKey() + "/" + itemKey;
             childUpdates.put(endpoint, itemPlan.toMap());
         }
 

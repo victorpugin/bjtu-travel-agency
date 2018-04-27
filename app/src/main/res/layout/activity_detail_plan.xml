@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/content_info_plan" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -21,3 +19,5 @@
         tools:listitem="@layout/plan_item_edit_text"/>
 
 </LinearLayout>
+
+<!--<include layout="@layout/content_info_plan" />-->
