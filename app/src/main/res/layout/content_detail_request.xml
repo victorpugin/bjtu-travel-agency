@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="10.0sp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     tools:context=".request.detail.DetailRequestActivity">
 
     <include layout="@layout/content_info_plan" />
