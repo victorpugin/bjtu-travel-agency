@@ -16,6 +16,16 @@
     <string name="title">Title</string>
     <string name="message">Message</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_button_label">Add</string>
+    <string name="cancel_button_label">Cancel</string>
+
+    <string-array name="item_plan_types">
+        <item>Text</item>
+    </string-array>
 </resources>
+
+
+<!--<item>Image</item>
+<item>Video</item>
+<item>Hyperlink</item>
+<item>Pdf</item>-->

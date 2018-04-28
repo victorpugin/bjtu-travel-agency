@@ -1,5 +1,7 @@
 package com.bjtutravel.bjtutravelagency.plan.create;
 
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +18,7 @@ import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.models.Request;
 import com.bjtutravel.bjtutravelagency.plan.adapter.PlanRecyclerViewAdapter;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.BaseViewHolder;
+import com.bjtutravel.bjtutravelagency.plan.create.dialog.ItemPlanTypeDialogFragment;
 import com.bjtutravel.bjtutravelagency.utils.UtilFirebase;
 import com.bjtutravel.bjtutravelagency.utils.UtilSnackbar;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +31,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class CreatePlanActivity extends AppCompatActivity {
+public class CreatePlanActivity extends AppCompatActivity
+        implements ItemPlanTypeDialogFragment.ItemPlanTypeDialogListener {
     private static final String TAG = "CreatePlanActivity";
 
     private Request mRequest;
@@ -86,8 +90,9 @@ public class CreatePlanActivity extends AppCompatActivity {
             savePlan();
         } else if (item.getItemId() == R.id.action_add_plan_item) {
             mActionProcessing = true;
-            addPlanItem();
-            mActionProcessing = false;
+            // Get wanted plan item with a dialog
+            new ItemPlanTypeDialogFragment()
+                    .show(getSupportFragmentManager(), "ItemPlanTypeDialog");
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -96,16 +101,24 @@ public class CreatePlanActivity extends AppCompatActivity {
     }
 
     // ADD PLAN ITEM
-    private void addPlanItem() {
-        // Get wanted plan item with a dialog
-
+    private void addPlanItem(int type) {
         // obtain new ItemPlan object
         ItemPlan itemPlan = new ItemPlan();
-        itemPlan.setType(ItemPlan.TYPE_TEXT);
-        itemPlan.setContent("Text");
+        itemPlan.setType(type);
 
         // add new item in view and notify
         adapter.addItemPlan(itemPlan);
+    }
+
+    // ITEM PLAN TYPE DIALOG LISTENER
+    @Override
+    public void onDialogPositiveClick(int typeIndex) {
+        addPlanItem(typeIndex + 1);
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        mActionProcessing = false;
     }
 
     // FIREBASE SAVE
