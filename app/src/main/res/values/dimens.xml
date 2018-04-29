@@ -7,4 +7,8 @@
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">0dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <!-- Default text sizes -->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_big_title">30sp</dimen>
 </resources>

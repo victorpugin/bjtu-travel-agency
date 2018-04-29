@@ -31,8 +31,8 @@ public class InfoPlanViewHolder extends BaseViewHolder {
         titleView.setText(mInfoPlan.getTitle());
         dateView.setText(mInfoPlan.getDate());
         if (mModeAdmin)
-            userView.setText("To: " + mInfoPlan.getUserName());
+            userView.setText("To " + mInfoPlan.getUserName());
         else
-            userView.setText("By: " + mInfoPlan.getStaffName());
+            userView.setText("By " + mInfoPlan.getStaffName());
     }
 }
