@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.bjtutravel.bjtutravelagency.R;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 
+import ru.noties.markwon.Markwon;
+
 public class TextViewHolder extends BaseViewHolder {
     public final TextView textView;
 
@@ -17,7 +19,8 @@ public class TextViewHolder extends BaseViewHolder {
 
     @Override
     public void onBind(ItemPlan itemPlan) {
-        textView.setText(itemPlan.getContent());
+        Markwon.setMarkdown(textView, itemPlan.getContent());
+        //textView.setText(itemPlan.getContent());
     }
 
     @Override
