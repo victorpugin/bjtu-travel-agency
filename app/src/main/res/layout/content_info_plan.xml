@@ -30,6 +30,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
+        android:textSize="18sp"
         android:gravity="start"
         android:textStyle="italic"/>
 
