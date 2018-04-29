@@ -1,3 +1,5 @@
+<p align="center"><img src="logo/png/512.png" alt="Bjtu Travel Agency" height="200px"></p>
+
 # Bjtu Travel Agency
 
 > A scholar assignment on Android Studio.
