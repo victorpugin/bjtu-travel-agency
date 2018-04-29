@@ -25,8 +25,6 @@
         android:layout_marginTop="10dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10.0sp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         tools:context=".plan.create.CreatePlanActivity"
         tools:listitem="@layout/plan_item_edit_text"/>
 
