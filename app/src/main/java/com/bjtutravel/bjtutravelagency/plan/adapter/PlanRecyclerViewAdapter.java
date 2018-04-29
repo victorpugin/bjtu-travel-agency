@@ -14,6 +14,7 @@ import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.BaseViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.EditTextViewHolder;
+import com.bjtutravel.bjtutravelagency.plan.adapter.holder.HyperlinkViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.ImageViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.InfoPlanViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.TextViewHolder;
@@ -73,6 +74,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
                          utilLayoutInflater(parent, R.layout.plan_item_edit_text),
                          new EditTextListener(this),
                          R.string.hint_input_image_url
+                 );
+
+             case 3: // HYPERLINK VIEW
+                 return new HyperlinkViewHolder(
+                         utilLayoutInflater(parent, R.layout.plan_item_hyperlink_view),
+                         mContext
                  );
          }
 

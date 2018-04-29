@@ -1,5 +1,6 @@
 package com.bjtutravel.bjtutravelagency.plan.adapter.holder;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ public class TextViewHolder extends BaseViewHolder {
     @Override
     public void onBind(ItemPlan itemPlan) {
         Markwon.setMarkdown(textView, itemPlan.getContent());
-        //textView.setText(itemPlan.getContent());
     }
 
     @Override

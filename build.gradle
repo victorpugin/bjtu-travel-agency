@@ -6,6 +6,7 @@ buildscript {
         mavenCentral()
         google()
         jcenter()
+        maven { url 'https://github.com/leonardocardoso/mvn-repo/raw/master/maven-deploy' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.1'
@@ -21,6 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://github.com/leonardocardoso/mvn-repo/raw/master/maven-deploy' }
     }
 }
 
