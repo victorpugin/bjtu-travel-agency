@@ -31,7 +31,7 @@ public class RequestRecyclerViewAdapter extends RecyclerView.Adapter<RequestRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_request, parent, false);
+                .inflate(R.layout.fragment_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -39,6 +39,7 @@ public class RequestRecyclerViewAdapter extends RecyclerView.Adapter<RequestRecy
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.title.setText(mValues.get(position).getTitle());
+        holder.date.setText(mValues.get(position).getDate());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +61,14 @@ public class RequestRecyclerViewAdapter extends RecyclerView.Adapter<RequestRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView title;
+        public final TextView date;
         public Request mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             title = (TextView) view.findViewById(R.id.title);
+            date = (TextView) view.findViewById(R.id.date);
         }
 
         @Override

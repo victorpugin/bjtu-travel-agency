@@ -26,7 +26,7 @@ public class InfoPlanRecyclerViewAdapter extends RecyclerView.Adapter<InfoPlanRe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_plan, parent, false);
+                .inflate(R.layout.fragment_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -34,6 +34,7 @@ public class InfoPlanRecyclerViewAdapter extends RecyclerView.Adapter<InfoPlanRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.title.setText(mValues.get(position).getTitle());
+        holder.date.setText(mValues.get(position).getDate());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,12 +56,14 @@ public class InfoPlanRecyclerViewAdapter extends RecyclerView.Adapter<InfoPlanRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView title;
+        public final TextView date;
         public InfoPlan mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             title = (TextView) view.findViewById(R.id.title);
+            date = (TextView) view.findViewById(R.id.date);
         }
 
         @Override
