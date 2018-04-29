@@ -19,6 +19,9 @@
     <string name="add_button_label">Add</string>
     <string name="cancel_button_label">Cancel</string>
 
+    <string name="hint_input_text">Write your text paragraph</string>
+    <string name="hint_input_image_url">Write your image url</string>
+
     <string-array name="item_plan_types">
         <item>Text</item>
         <item>Image</item>

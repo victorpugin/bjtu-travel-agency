@@ -13,13 +13,16 @@ public class EditTextViewHolder extends BaseViewHolder {
     public EditTextListener mEditTextListener;
     public PlanRecyclerViewAdapter adapter;
 
-    public EditTextViewHolder(View itemView, EditTextListener editTextListener) {
+    public EditTextViewHolder(View itemView, EditTextListener editTextListener, int resHint) {
         super(itemView);
 
-        textEdt = (EditText) itemView.findViewById(R.id.edit_text);
         mEditTextListener = editTextListener;
-        textEdt.addTextChangedListener(editTextListener);
         adapter = mEditTextListener.getAdapter();
+
+        textEdt = (EditText) itemView.findViewById(R.id.edit_text);
+        textEdt.addTextChangedListener(editTextListener);
+        textEdt.setHint(resHint);
+
     }
 
     @Override

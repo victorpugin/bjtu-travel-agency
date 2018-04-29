@@ -49,17 +49,31 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
              case 0: // INFO PLAN
                  return new InfoPlanViewHolder(
                          utilLayoutInflater(parent, R.layout.content_info_plan),
-                         mInfoPlan, modeAdmin);
+                         mInfoPlan, modeAdmin
+                 );
 
              case 1: // TEXT VIEW
-                 return new TextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_text_view));
+                 return new TextViewHolder(
+                         utilLayoutInflater(parent, R.layout.plan_item_text_view)
+                 );
              case 101: // EDIT TEXT VIEW
                  return new EditTextViewHolder(
                          utilLayoutInflater(parent, R.layout.plan_item_edit_text),
-                         new EditTextListener(this));
+                         new EditTextListener(this),
+                         R.string.hint_input_text
+                 );
 
              case 2: // IMAGE VIEW
-                 return new ImageViewHolder(utilLayoutInflater(parent, R.layout.plan_item_image_view), mContext);
+                 return new ImageViewHolder(
+                         utilLayoutInflater(parent, R.layout.plan_item_image_view),
+                         mContext
+                 );
+             case 102: // EDIT IMAGE VIEW, edit text to set img url
+                 return new EditTextViewHolder(
+                         utilLayoutInflater(parent, R.layout.plan_item_edit_text),
+                         new EditTextListener(this),
+                         R.string.hint_input_image_url
+                 );
          }
 
         return null;
