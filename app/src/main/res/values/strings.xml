@@ -22,6 +22,8 @@
     <string name="hint_input_text">Write your text paragraph</string>
     <string name="hint_input_image_url">Write your image url</string>
 
+    <string name="webview_loading">Loading…</string>
+
     <string-array name="item_plan_types">
         <item>Text</item>
         <item>Image</item>
@@ -29,6 +31,6 @@
 </resources>
 
 
-<!--<item>Video</item>
+    <!--<item>Video</item>
 <item>Hyperlink</item>
 <item>Pdf</item>-->

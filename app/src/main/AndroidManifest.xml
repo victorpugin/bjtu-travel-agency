@@ -26,7 +26,8 @@
         <activity android:name=".request.create.CreateRequestActivity" />
         <activity android:name=".request.detail.DetailRequestActivity" />
         <activity android:name=".plan.create.CreatePlanActivity" />
-        <activity android:name=".plan.detail.DetailPlanActivity"></activity>
+        <activity android:name=".plan.detail.DetailPlanActivity" />
+        <activity android:name=".web.WebActivity"></activity>
     </application>
 
 </manifest>
