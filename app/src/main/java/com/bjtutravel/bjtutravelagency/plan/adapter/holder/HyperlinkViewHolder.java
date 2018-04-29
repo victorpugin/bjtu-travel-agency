@@ -66,7 +66,7 @@ public class HyperlinkViewHolder extends BaseViewHolder implements View.OnClickL
 
     @Override
     public void onBind(ItemPlan itemPlan) {
-        mTextCrawler.makePreview(mLinkPreviewCallback, "https://stackoverflow.com/questions/34917503/how-do-i-create-url-preview-in-android");
+        mTextCrawler.makePreview(mLinkPreviewCallback, itemPlan.getContent());
     }
 
     @Override
