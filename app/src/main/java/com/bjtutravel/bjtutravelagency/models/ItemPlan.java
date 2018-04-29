@@ -9,6 +9,7 @@ public class ItemPlan implements Serializable {
     @Exclude
     public static final Integer TYPE_INFO_PLAN = 0;
     public static final Integer TYPE_TEXT = 1;
+    public static final Integer TYPE_IMAGE = 2;
 
     private Integer type;
     private String content;

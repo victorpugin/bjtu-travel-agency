@@ -1,5 +1,6 @@
 package com.bjtutravel.bjtutravelagency.plan.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.bjtutravel.bjtutravelagency.models.InfoPlan;
 import com.bjtutravel.bjtutravelagency.models.ItemPlan;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.BaseViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.EditTextViewHolder;
+import com.bjtutravel.bjtutravelagency.plan.adapter.holder.ImageViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.InfoPlanViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.holder.TextViewHolder;
 import com.bjtutravel.bjtutravelagency.plan.adapter.listener.EditTextListener;
@@ -22,20 +24,22 @@ import java.util.ArrayList;
 public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG = "PlanRecyclerViewAdapter";
 
+    private Context mContext;
     private ArrayList<ItemPlan> mValues;
     private InfoPlan mInfoPlan;
     private boolean modeEdit;
     private boolean modeAdmin;
 
-    public PlanRecyclerViewAdapter(InfoPlan infoPlan, boolean modeAdmin, boolean modeEdit) {
+    public PlanRecyclerViewAdapter(Context context, InfoPlan infoPlan, boolean modeAdmin, boolean modeEdit) {
+        this.mContext = context;
         this.mValues = new ArrayList<>();
         this.mInfoPlan = infoPlan;
         this.modeEdit = modeEdit;
         this.modeAdmin = modeAdmin;
     }
 
-    public PlanRecyclerViewAdapter(boolean modeEdit) {
-        this(null, false, modeEdit);
+    public PlanRecyclerViewAdapter(Context context, boolean modeEdit) {
+        this(context,null, false, modeEdit);
     }
 
     @NonNull
@@ -46,12 +50,16 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
                  return new InfoPlanViewHolder(
                          utilLayoutInflater(parent, R.layout.content_info_plan),
                          mInfoPlan, modeAdmin);
+
              case 1: // TEXT VIEW
                  return new TextViewHolder(utilLayoutInflater(parent, R.layout.plan_item_text_view));
              case 101: // EDIT TEXT VIEW
                  return new EditTextViewHolder(
                          utilLayoutInflater(parent, R.layout.plan_item_edit_text),
                          new EditTextListener(this));
+
+             case 2: // IMAGE VIEW
+                 return new ImageViewHolder(utilLayoutInflater(parent, R.layout.plan_item_image_view), mContext);
          }
 
         return null;

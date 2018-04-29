@@ -63,7 +63,7 @@ public class CreatePlanActivity extends AppCompatActivity
         // Set the adapter
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PlanRecyclerViewAdapter(true);
+        adapter = new PlanRecyclerViewAdapter(this, true);
         mRecyclerView.setAdapter(adapter);
     }
 

@@ -21,11 +21,11 @@
 
     <string-array name="item_plan_types">
         <item>Text</item>
+        <item>Image</item>
     </string-array>
 </resources>
 
 
-<!--<item>Image</item>
-<item>Video</item>
+<!--<item>Video</item>
 <item>Hyperlink</item>
 <item>Pdf</item>-->
