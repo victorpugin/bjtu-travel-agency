@@ -59,30 +59,13 @@ public class DetailPlanActivity extends AppCompatActivity {
     // Bind data class to view
     private void bindDataView() {
         if (mInfoPlan != null) {
-            //bindInfoPlanView();
+            createRecyclerView();
             bindPlanView();
         }
     }
 
-    // INFO PLAN VIEW TODO: remove when sure new feature work
-    /*private void bindInfoPlanView() {
-        TextView userText = (TextView) findViewById(R.id.info_plan_user);
-        TextView titleText = (TextView) findViewById(R.id.info_plan_title);
-        TextView dateText = (TextView)findViewById(R.id.info_plan_date);
-
-        if (mUserIsAdmin) {
-            userText.setText(mInfoPlan.getUserName());
-        } else {
-            userText.setText("Wrote by " + mInfoPlan.getStaffName());
-        }
-        titleText.setText(mInfoPlan.getTitle());
-        dateText.setText(mInfoPlan.getDate());
-    }*/
-
     // PLAN VIEW
     private void bindPlanView() {
-        createRecyclerView();
-
         // Get Firebase db and user
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         String userId = UtilFirebase.getFirebaseUserId();
