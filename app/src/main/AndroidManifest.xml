@@ -27,7 +27,14 @@
         <activity android:name=".request.detail.DetailRequestActivity" />
         <activity android:name=".plan.create.CreatePlanActivity" />
         <activity android:name=".plan.detail.DetailPlanActivity" />
-        <activity android:name=".web.WebActivity"></activity>
+        <activity android:name=".web.WebActivity" />
+
+        <service
+            android:name=".utils.service.FirebaseInstance">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
