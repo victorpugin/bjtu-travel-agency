@@ -18,7 +18,6 @@ public class FirebaseInstance extends FirebaseInstanceIdService {
 
         String currentToken = FirebaseInstanceId.getInstance().getToken();
         FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
-        Log.d(TAG, "New firebase token");
 
         if (firebaseUser != null) {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
