@@ -21,16 +21,16 @@
 
     <string name="hint_input_text">Write your text paragraph</string>
     <string name="hint_input_image_url">Write your image url</string>
+    <string name="hint_input_hyperlink">Write your hyperlink</string>
 
     <string name="webview_loading">Loading…</string>
 
     <string-array name="item_plan_types">
         <item>Text</item>
         <item>Image</item>
+        <item>Hyperlink</item>
     </string-array>
 </resources>
 
-
     <!--<item>Video</item>
-<item>Hyperlink</item>
-<item>Pdf</item>-->
+    <item>Pdf</item>-->

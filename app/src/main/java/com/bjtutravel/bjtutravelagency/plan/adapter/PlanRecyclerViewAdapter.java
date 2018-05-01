@@ -81,6 +81,12 @@ public class PlanRecyclerViewAdapter extends RecyclerView.Adapter<BaseViewHolder
                          utilLayoutInflater(parent, R.layout.plan_item_hyperlink_view),
                          mContext
                  );
+             case 103: // HYPERLINK EDIT, edit text to set kyperlink
+                 return new EditTextViewHolder(
+                         utilLayoutInflater(parent, R.layout.plan_item_edit_text),
+                         new EditTextListener(this),
+                         R.string.hint_input_hyperlink
+                 );
          }
 
         return null;
