@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.BindView;
 
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity
                 startActivity(in);
             }
         });
+
+        // DEVICE REFRESH TOKEN
+        setDeviceRefreshToken();
 
         // FRAGMENT MANAGER
         loadContentFragment();
@@ -154,6 +158,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    // SET DEVICE REFRESH TOKEN
+    private void setDeviceRefreshToken() {
+
+        FirebaseUser firebaseUser = UtilFirebase.getFirebaseUser();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                .child("users")
+                .child(firebaseUser.getUid());
+
+        String currentToken = FirebaseInstanceId.getInstance().getToken();
+
+        if (currentToken != null) {
+            ref.child("fcmTokens").child(currentToken).setValue(true);
+            Log.d(TAG, "New Firebase token : " + currentToken);
+        } else
+            Log.i(TAG, "onTokenRefresh: token was null.");
+    }
 
     // REQUEST LISTENER
     @Override
