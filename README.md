@@ -4,6 +4,8 @@
 
 > A scholar assignment on Android Studio.
 
+**This project is stopped and not longer maintained !**
+
 ## Installation
 
 1. Create a project on [Firebase](https://firebase.google.com).
